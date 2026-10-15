@@ -1,0 +1,56 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.train
+#1 transferring dockerfile: 623B done
+#1 DONE 0.0s
+
+#2 [auth] library/python:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim
+#3 DONE 0.9s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 164B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 726B done
+#5 DONE 0.0s
+
+#6 [builder 1/4] FROM docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+#6 resolve docker.io/library/python:3.12-slim@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1 done
+#6 DONE 0.0s
+
+#7 [builder 3/4] COPY requirements-train.txt .
+#7 CACHED
+
+#8 [builder 4/4] RUN pip install -r requirements-train.txt
+#8 CACHED
+
+#9 [stage-1 3/5] COPY --from=builder /opt/venv /opt/venv
+#9 CACHED
+
+#10 [stage-1 2/5] RUN useradd -r -u 10001 app && mkdir /models && chown app /models
+#10 CACHED
+
+#11 [builder 2/4] RUN python -m venv /opt/venv
+#11 CACHED
+
+#12 [stage-1 4/5] WORKDIR /app
+#12 CACHED
+
+#13 [stage-1 5/5] COPY train.py .
+#13 DONE 0.5s
+
+#14 exporting to image
+#14 exporting layers 0.0s done
+#14 exporting manifest sha256:6d016404b13e88fb01c333b349f248f29dd4c377da140df104ce64c033b94f42 done
+#14 exporting config sha256:d2072d77d885cd2d4622976f1cee9583fa5aeba66eb8e90f646c4a53c11ffdb9 done
+#14 exporting attestation manifest sha256:6057b2be807404e3b070fa224ed412073e1f85f8b39437dcbf06e4ad8ec517ef done
+#14 exporting manifest list sha256:495b98516a997f662b61f2a29d433146ddb820a4977517cd5d8e2e787fe6626f done
+#14 naming to docker.io/library/iris-train:optimise done
+#14 unpacking to docker.io/library/iris-train:optimise done
+#14 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/5ce3oywhbxw5e9v06uzjmlcl8

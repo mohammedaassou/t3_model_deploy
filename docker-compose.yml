@@ -1,0 +1,29 @@
+services:
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    image: iris-train:opt
+    volumes:
+      - models:/models
+    restart: "no"
+
+  infer:
+    build:
+      context: .
+      dockerfile: Dockerfile.infer
+    image: iris-infer:opt
+    depends_on:
+      train:
+        condition: service_completed_successfully
+    volumes:
+      - models:/models:ro
+    ports:
+      - "8000:8000"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  models:

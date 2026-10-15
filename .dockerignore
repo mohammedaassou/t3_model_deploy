@@ -1,0 +1,13 @@
+.git
+.gitignore
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.md
+*.joblib
+models/
+Dockerfile*
+docker-compose.yml
+bench.sh
+.dockerignore

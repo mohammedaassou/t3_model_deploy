@@ -1,0 +1,17 @@
+# ---- Étape 1 : build des dépendances ----
+FROM python:3.12-slim AS builder
+ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+COPY requirements-train.txt .
+RUN pip install -r requirements-train.txt
+
+# ---- Étape 2 : image finale ----
+FROM python:3.12-slim
+ENV PATH="/opt/venv/bin:$PATH" PYTHONUNBUFFERED=1 MODEL_PATH=/models/model.joblib
+RUN useradd -r -u 10001 app && mkdir /models && chown app /models
+COPY --from=builder /opt/venv /opt/venv
+WORKDIR /app
+COPY train.py .
+USER app
+CMD ["python", "train.py"]
