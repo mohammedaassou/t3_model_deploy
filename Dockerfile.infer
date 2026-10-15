@@ -6,10 +6,12 @@ COPY requirements-infer.txt .
 RUN pip install -r requirements-infer.txt
 
 FROM python:3.12-slim
-ENV PATH="/opt/venv/bin:$PATH" PYTHONUNBUFFERED=1 MODEL_PATH=/models/model.joblib
+ENV PATH="/opt/venv/bin:$PATH" PYTHONUNBUFFERED=1 MODEL_PATH=/app/model.joblib
 RUN useradd -r -u 10001 app
 COPY --from=builder /opt/venv /opt/venv
 WORKDIR /app
+COPY train.py .
+RUN python train.py
 COPY app.py .
 USER app
 EXPOSE 8000
